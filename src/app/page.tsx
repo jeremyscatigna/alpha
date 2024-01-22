@@ -8,8 +8,8 @@ export default async function Home() {
   return (
     <main className="space-y-4">
       {session ? (
-        <div className="bg-secondary p-4 rounded-sm shadow-sm text-secondary-foreground break-all whitespace-break-spaces">
-          <Upload />
+        <div className="p-4 rounded-sm shadow-sm text-secondary-foreground break-all whitespace-break-spaces">
+          <pre className="bg-secondary p-4 rounded-lg">{JSON.stringify(session, null, 2)}</pre>
         </div>
       ) : null}
       <SignIn />

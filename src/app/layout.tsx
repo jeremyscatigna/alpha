@@ -29,7 +29,7 @@ export default function RootLayout({
                         <TrpcProvider cookies={cookies().toString()}>
                             <div className='flex'>
                                 <Sidebar />
-                                <main className='flex-1 md:p-8 pt-2 p-8'>
+                                <main className='flex-1'>
                                     <Navbar />
                                     {children}
                                 </main>

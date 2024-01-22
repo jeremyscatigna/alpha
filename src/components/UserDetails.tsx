@@ -1,10 +1,11 @@
-"use client"
+'use client';
 
-import { AuthSession } from "@/lib/auth/utils";
-import { Select, SelectContent, SelectTrigger } from "./ui/select";
-import { signOut } from "next-auth/react";
-import { Avatar, AvatarFallback } from "./ui/avatar";
-import Link from "next/link";
+import { AuthSession } from '@/lib/auth/utils';
+import { signOut } from 'next-auth/react';
+import { Avatar, AvatarFallback } from './ui/avatar';
+import Link from 'next/link';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { Button } from './ui/button';
 
 const UserDetails = ({ session }: { session: AuthSession }) => {
     if (session.session === null) return null;
@@ -13,10 +14,10 @@ const UserDetails = ({ session }: { session: AuthSession }) => {
     if (!user?.name || user.name.length == 0) return null;
 
     return (
-        <Select>
-            <SelectTrigger>
-                <div className='text-muted-foreground space-x-2 flex items-center px-2 py-2 '>
-                    <div className='text-muted-foreground'>
+        <Popover>
+            <PopoverTrigger asChild>
+                <Button variant='default' className='space-x-2'>
+                    <div className='text-background'>
                         <p className='text-xs font-semibold'>{user.name ?? 'John Doe'}</p>
                     </div>
                     <Avatar className='h-8 w-8 bg-background'>
@@ -29,17 +30,15 @@ const UserDetails = ({ session }: { session: AuthSession }) => {
                                 : '~'}
                         </AvatarFallback>
                     </Avatar>
-                </div>
-            </SelectTrigger>
-            <SelectContent>
-                <div className='relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-muted'>
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+                <div className='grid gap-2'>
                     <Link href={'/account'}>Account</Link>
+                    <div className='cursor-pointer' onClick={() => signOut()}>Sign out</div>
                 </div>
-                <div onClick={() => signOut()} className='relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-muted'>
-                    Sign out
-                </div>
-            </SelectContent>
-        </Select>
+            </PopoverContent>
+        </Popover>
     );
 };
 

@@ -1,39 +1,34 @@
-"use client"
+'use client';
 
-import * as React from "react"
+import * as React from 'react';
 
-import { cn } from "@/lib/utils"
-import { Label } from "../ui/label"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
-import { Loader2 } from "lucide-react"
-import { signIn } from "next-auth/react"
-import { Icons } from "../ui/icons"
+import { cn } from '@/lib/utils';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { Loader2 } from 'lucide-react';
+import { signIn } from 'next-auth/react';
+import { Icons } from '../ui/icons';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault()
-    setIsLoading(true)
-
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }
-
-  return (
-    <div className={cn("grid gap-6", className)} {...props}>
-      <Button variant="outline" type="button" disabled={isLoading} onClick={() => signIn("google")}>
-        {isLoading ? (
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-            <Icons.google className="mr-2 h-4 w-4" />
-        )}{" "}
-        Google
-      </Button>
-    </div>
-  )
+    return (
+        <div className={cn('grid gap-6', className)} {...props}>
+            <Button
+                variant='outline'
+                type='button'
+                disabled={isLoading}
+                onClick={() =>
+                    signIn('google', {
+                        callbackUrl: '/',
+                    })
+                }
+            >
+                {isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : <Icons.google className='mr-2 h-4 w-4' />} Google
+            </Button>
+        </div>
+    );
 }

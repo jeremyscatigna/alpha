@@ -21,7 +21,7 @@ export const subscriptions = pgTable(
   },
   (table) => {
     return {
-      pk: primaryKey(table.userId, table.stripeCustomerId),
+      pk: primaryKey({columns: [table.userId, table.stripeCustomerId]}),
     };
   }
 );
